@@ -1,0 +1,6 @@
+version: "3"
+
+tasks:
+  echo:
+    cmds:
+      - "echo task files are better than Makefiles"
