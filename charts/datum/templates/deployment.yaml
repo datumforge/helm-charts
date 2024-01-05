@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "common.names.fullname" . -}}
+  {{ $labels := include "common.tplvalues.merge" (dict "values" ( list .Values.api.labels .Values.api.commonLabels (include "common.labels.standard" .) ) "context" . ) }}
+  labels: {{- include "common.tplvalues.render" ( dict "value" $labels "context" $) | nindent 4 }}   
+  {{- if or .Values.api.annotations .Values.api.commonAnnotations }}
+  {{- $annotations := include "common.tplvalues.merge" ( dict "values" ( list .Values.api.annotations .Values.api.commonAnnotations ) "context" . ) }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" $annotations "context" $) | nindent 4 }}
+  {{- end }}
+spec:
+  replicas: {{ .Values.api.replicas }}
+  selector:
+    matchLabels:
+      {{- include "datum.selectorLabels" . | nindent 6 }}
+      #TODO: add additional selectorLabels
+  template:
+    metadata:
+      {{- if or .Values.api.podAnnotations .Values.api.commonAnnotations }}
+      {{- $annotations := include "common.tplvalues.merge" ( dict "values" ( list .Values.api.podAnnotations .Values.api.commonAnnotations ) "context" . ) }}
+      annotations: {{- include "common.tplvalues.render" ( dict "value" $annotations "context" $) | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "datum.selectorLabels" . | nindent 8 }}
+        #TODO: add additional selectorlabels
+    spec:
+      {{- with .Values.api.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "common.names.fullname" . }}
+      securityContext:
+        {{- toYaml .Values.api.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.api.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          args:
+            - serve
+            - --config=/app/config.yaml
+          envFrom:
+            - configMapRef:
+                name: {{ include "common.names.fullname" . }}-config
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: {{ .Values.service.portName }}
+              containerPort: {{ .Values.service.port }}
+              protocol: {{ .Values.service.protocol | default "TCP" }}
+          {{- if .Values.extraServices }}
+          {{ range .Values.extraServices }}
+            - name: {{ .portName }}
+              containerPort: {{ .targetPort }}
+              protocol: {{ .protocol | default "TCP"}}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.api.datastore.sqlite.local.enabled }}
+          volumeMounts:
+            - mountPath: "/data/primary/"
+              name: sqlite-primary-data
+            {{- if .Values.api.datastore.sqlite.local.secondary.enabled }}
+            - mountPath: "/data/secondary/"
+              name: sqlite-secondary-data
+            {{- end -}}
+          {{- end -}}
+          {{- with .Values.api.livenessProbe }}
+          livenessProbe:
+            {{- toYaml . | nindent 12}}
+          {{- end }}
+          {{- with .Values.api.readinessProbe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.api.resources }}
+          resources:
+            {{- toYaml .Values.api.resources | nindent 12 }}
+          {{- end }}
+      {{- with .Values.api.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.api.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.api.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.api.datastore.sqlite.local.enabled }}
+      volumes:
+        - name: sqlite-primary-data
+          persistentVolumeClaim:
+            claimName: {{ include "common.names.fullname" . }}-sqlite-primary
+      {{- if .Values.api.datastore.sqlite.local.secondary.enabled }}
+        - name: sqlite-secondary-data
+          persistentVolumeClaim:
+            claimName: {{ include "common.names.fullname" . }}-sqlite-secondary
+      {{- end }}
+      {{- end }}

@@ -19,8 +19,8 @@ go.work
 
 # local dev created files
 *.db
-datum
-datum-cli
+./datum
+./datum-cli
 server.crt 
 server.key 
 private_key.pem
