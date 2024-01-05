@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "common.names.fullname" . -}}-config
+  {{ $labels := include "common.tplvalues.merge" (dict "values" ( list .Values.api.commonLabels (include "common.labels.standard" .) ) "context" . ) }}
+  labels: {{- include "common.tplvalues.render" ( dict "value" $labels "context" $) | nindent 4 }}   
+  {{- if .Values.api.commonAnnotations }}
+  {{- $annotations := include "common.tplvalues.merge" ( dict "values" ( list .Values.api.commonAnnotations ) "context" . ) }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" $annotations "context" $) | nindent 4 }}
+  {{- end }}
+data:
+    DATUM_SERVER_DEBUG: "true"
+    DATUM_SERVER_DEV: "true"
+    DATUM_TLS_ENABLED: "false"
+    DATUM_TLS_AUTO_CERT: "false"
+    DATUM_DB_DEBUG: "true"
+    DATUM_DB_DRIVER_NAME: "sqlite3"
+    DATUM_DB_MULTI_WRITE: "false"
+    DATUM_DB_PRIMARY_DB_SOURCE: "/data/primary/datum.db?mode=memory&_fk=1"
+    DATUM_DB_SECONDARY_DB_SOURCE: "/data/secondary/datum.db?mode=memory&_fk=1"
+    DATUM_AUTHZ_ENABLED: "true"
+    DATUM_AUTHZ_STORE_NAME: "datum"
+    DATUM_AUTHZ_HOST: "datum-openfga:8080"
+    DATUM_AUTHZ_SCHEME: "http"
+    DATUM_AUTHZ_CREATE_NEW_MODEL: "false"
+    DATUM_EMAIL_SEND_GRID_API_KEY: "SG.FakeAPIKey"
+    DATUM_EMAIL_TESTING: "true"
+    DATUM_EMAIL_URL_BASE: "http://localhost:17608/"

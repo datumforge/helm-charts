@@ -1,0 +1,47 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "common.names.fullname" . -}}
+  {{ $labels := include "common.tplvalues.merge" (dict "values" ( list .Values.service.labels .Values.api.commonLabels (include "common.labels.standard" .) ) "context" . ) }}
+  labels: {{- include "common.tplvalues.render" ( dict "value" $labels "context" $) | nindent 4 }}   
+  {{- if or .Values.service.annotations .Values.api.commonAnnotations }}
+  {{- $annotations := include "common.tplvalues.merge" ( dict "values" ( list .Values.service.annotations .Values.api.commonAnnotations ) "context" . ) }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" $annotations "context" $) | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
+      protocol: {{ .Values.service.protocol | default "TCP" }}
+      name: {{ .Values.service.portName | default "http" }}
+  selector:
+    {{- include "datum.selectorLabels" . | nindent 4 }}
+    # TODO: add additional selectorLabels
+{{- if .Values.extraServices }}
+{{ range .Values.extraServices }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "common.names.fullname" $ }}-{{ .name -}}
+  {{ $labels := include "common.tplvalues.merge" (dict "values" ( list .labels $.Values.api.commonLabels (include "common.labels.standard" $) ) "context" . ) }}
+  labels: {{- include "common.tplvalues.render" ( dict "value" $labels "context" $) | nindent 4 }}   
+  {{- if or .annotations $.Values.api.commonAnnotations }}
+  {{- $annotations := include "common.tplvalues.merge" ( dict "values" ( list .annotations $.Values.api.commonAnnotations ) "context" . ) }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" $annotations "context" $) | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .type }}
+  ports:
+    - port: {{ .port }}
+      targetPort: {{ .targetPort }}
+      protocol: {{ .protocol | default "TCP" }}
+      name: {{ .portName }}
+  selector:
+    {{- include "datum.selectorLabels" $ | nindent 4 }}
+    # TODO: add additional selectorLabels
+{{ end }}
+{{ end }}
+

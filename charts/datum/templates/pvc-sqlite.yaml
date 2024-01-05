@@ -1,0 +1,36 @@
+{{- if and .Values.api.datastore.sqlite.enabled .Values.api.datastore.sqlite.local.enabled -}}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "common.names.fullname" . }}-sqlite-primary
+spec:
+  {{- with .Values.api.datastore.sqlite.local.primary.storage.className }}
+  storageClassName: {{ . }}
+  {{- end -}}
+  {{ with .Values.api.datastore.sqlite.local.primary.storage.accessModes }}
+  accessModes:
+    {{- toYaml . | nindent 4}}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.api.datastore.sqlite.local.primary.storage.size | default "1Gi" }}
+{{- end }}
+{{ if and .Values.api.datastore.sqlite.enabled .Values.api.datastore.sqlite.local.secondary.enabled -}}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "common.names.fullname" . }}-sqlite-secondary
+spec:
+  {{- with .Values.api.datastore.sqlite.local.secondary.storage.className }}
+  storageClassName: {{ . }}
+  {{- end -}}
+  {{ with .Values.api.datastore.sqlite.local.secondary.storage.accessModes }}
+  accessModes:
+    {{- toYaml . | nindent 4}}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.api.datastore.sqlite.local.secondary.storage.size | default "1Gi" }}
+{{- end -}}
