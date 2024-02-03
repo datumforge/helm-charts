@@ -3,6 +3,7 @@ name: datum
 description: A Helm chart to deploy the Datum API server
 type: application
 version: 0.0.1
+icon: favicon.png
 appVersion: "0.2.3"
 kubeVersion: ">=1.24"
 

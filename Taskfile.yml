@@ -1,6 +1,6 @@
 version: "3"
 
 tasks:
-  echo:
+  lint:
     cmds:
-      - "echo task files are better than Makefiles"
+      - helm lint ./charts/datum
