@@ -1,9 +1,9 @@
 dependencies:
 - name: common
   repository: https://charts.bitnami.com/bitnami
-  version: 2.18.0
+  version: 2.19.0
 - name: openfga
   repository: https://openfga.github.io/helm-charts
   version: 0.1.37
-digest: sha256:b68aa41759d6dff8c1820b54507dd294f13ec5fd3bb3c16c83059c09b9fa77f4
-generated: "2024-03-04T22:19:26.164228024Z"
+digest: sha256:1839afc0ed738737f3949de833cb5b20cd7c364a37c2079591b63e533a1c1b38
+generated: "2024-03-08T10:48:14.507178234Z"
