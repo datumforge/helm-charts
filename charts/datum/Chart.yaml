@@ -17,3 +17,7 @@ dependencies:
     tags:
       - openfga
     version: 0.1.41
+  - name: redis
+    version: 19.0.1
+    condition: redis.enabled
+    repository: https://charts.bitnami.com/bitnami
