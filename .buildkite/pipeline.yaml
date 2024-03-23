@@ -1,6 +1,8 @@
 steps:
   - name: ":helm: Helm Tarball Update"
     key: "helm-dep-up"
+    env:
+      BUILDKITE_PLUGINS_ALWAYS_CLONE_FRESH: "true"
     plugins:
       - datumforge/helm#fixes: {}
   
