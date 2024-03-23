@@ -2,7 +2,7 @@ steps:
   - name: ":helm: Helm Tarball Update"
     key: "helm-dep-up"
     plugins:
-      - datumforge/helm#main: {}
+      - datumforge/helm#fixes: {}
   
   - label: ":helm: docs"
     plugins:
