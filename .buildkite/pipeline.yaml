@@ -16,7 +16,7 @@ steps:
           volume: ["`pwd`:/helm-docs"]
           entrypoint: "/usr/bin/helm-docs"
           command: ["helm", "docs", "--document-dependency-values"]
-      - datumforge/git-commit#v1.0.0:
+      - datumforge/git-commit#https:
           message: "Updated helm docs"
           user:
             name: datum-bender
