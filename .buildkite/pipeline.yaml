@@ -18,6 +18,7 @@ steps:
           command: ["helm", "docs", "--document-dependency-values"]
       - datumforge/git-commit#https:
           message: "Updated helm docs"
+          https-commit: true
           user:
             name: datum-bender
             email: bender@datum.net
