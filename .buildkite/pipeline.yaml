@@ -4,7 +4,7 @@ steps:
     env:
       BUILDKITE_PLUGINS_ALWAYS_CLONE_FRESH: "true"
     plugins:
-      - datumforge/helm#fixes: 
+      - datumforge/helm#fix-things: 
           user:
             name: datum-bender
             email: bender@datum.net
