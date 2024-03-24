@@ -10,6 +10,8 @@ steps:
             email: bender@datum.net
   
   - label: ":helm: docs"
+    depends_on:
+      - helm-dep-up
     plugins:
       - docker#v5.8.0:
           image: "jnorwood/helm-docs:latest"
