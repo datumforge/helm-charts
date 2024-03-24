@@ -18,7 +18,7 @@ steps:
           command: ["helm", "docs", "--document-dependency-values"]
       - datumforge/git-commit#https:
           message: "Updated helm docs"
-          https-commit: true
+          https: true
           user:
             name: datum-bender
             email: bender@datum.net
@@ -36,4 +36,6 @@ steps:
     plugins:
       - docker#v5.8.0:
           image: "alpine/helm"
-          command: ["lint charts/datum"]
+          command: 
+            - "lint"
+            - "charts/datum"
