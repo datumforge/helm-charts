@@ -2,17 +2,23 @@ steps:
   - name: ":helm: Helm Tarball Update"
     key: "helm-dep-up"
     plugins:
-      - equinixmetal-buildkite/helm-tar-update#v0.0.1: {}
+      - datumforge/helm#v1.0.0: 
+          user:
+            name: datum-bender
+            email: bender@datum.net
   
   - label: ":helm: docs"
+    depends_on:
+      - helm-dep-up
     plugins:
       - docker#v5.8.0:
           image: "jnorwood/helm-docs:latest"
           volume: ["`pwd`:/helm-docs"]
           entrypoint: "/usr/bin/helm-docs"
           command: ["helm", "docs", "--document-dependency-values"]
-      - thedyrt/git-commit#v0.3.0:
+      - datumforge/git-commit#v1.1.0:
           message: "Updated helm docs"
+          https: true
           user:
             name: datum-bender
             email: bender@datum.net
@@ -30,4 +36,6 @@ steps:
     plugins:
       - docker#v5.8.0:
           image: "alpine/helm"
-          command: ["lint"]
+          command: 
+            - "lint"
+            - "charts/datum"
