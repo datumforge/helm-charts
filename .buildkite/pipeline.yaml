@@ -36,4 +36,4 @@ steps:
     plugins:
       - docker#v5.8.0:
           image: "alpine/helm"
-          command: ["lint, "charts/datum"]
+          command: ["lint charts/datum"]
