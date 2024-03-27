@@ -1,0 +1,41 @@
+steps:
+  - name: ":helm: Helm Tarball Update"
+    key: "helm-dep-up"
+    plugins:
+      - datumforge/helm#v1.0.0: 
+          user:
+            name: datum-bender
+            email: bender@datum.net
+  
+  - label: ":helm: docs"
+    depends_on:
+      - helm-dep-up
+    plugins:
+      - docker#v5.8.0:
+          image: "jnorwood/helm-docs:latest"
+          volume: ["`pwd`:/helm-docs"]
+          entrypoint: "/usr/bin/helm-docs"
+          command: ["helm", "docs", "--document-dependency-values"]
+      - datumforge/git-commit#v1.0.1:
+          message: "Updated helm docs"
+          https: true
+          user:
+            name: datum-bender
+            email: bender@datum.net
+  
+  - label: ":trivy: scan"
+    command: "echo '--- Running the Trivy security scanner'"
+    plugins:
+      - equinixmetal-buildkite/trivy#v1.16.7:
+          severity: "CRITICAL,HIGH"
+          security-checks: "config,secret"
+  
+  - label: ":helm: lint"
+    depends_on:
+      - helm-dep-up
+    plugins:
+      - docker#v5.8.0:
+          image: "alpine/helm"
+          command: 
+            - "lint"
+            - "charts/datum"
