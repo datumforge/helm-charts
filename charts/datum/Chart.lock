@@ -5,8 +5,8 @@ dependencies:
 - name: openfga
   repository: https://openfga.github.io/helm-charts
   version: 0.1.41
-- name: redis-ha
-  repository: https://dandydeveloper.github.io/charts
-  version: 4.22.3
-digest: sha256:759e8bbe41d437d7d117c49b9ac3c82c206ae5ae9227391f8170dd2e021c7cdd
-generated: "2024-03-20T17:47:32.884435-06:00"
+- name: redis
+  repository: https://charts.bitnami.com/bitnami
+  version: 19.0.1
+digest: sha256:7615c45102c043ace950f73219e0c9acca0c66bbbe500b02c9f01da07405de1a
+generated: "2024-03-27T03:39:02.894439536Z"
