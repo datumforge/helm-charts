@@ -12,61 +12,51 @@ Kubernetes: `>=1.24`
 |------------|------|---------|
 | https://charts.bitnami.com/bitnami | common | 2.19.0 |
 | https://charts.bitnami.com/bitnami | redis | 19.1.0 |
-| https://openfga.github.io/helm-charts | openfga | 0.1.41 |
+| https://openfga.github.io/helm-charts | openfga | 0.2.3 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| datum.api.affinity | object | `{}` |  |
-| datum.api.annotations | object | `{}` |  |
-| datum.api.commonAnnotations | object | `{}` |  |
-| datum.api.commonLabels | object | `{}` |  |
-| datum.api.datastore.sqlite.enabled | bool | `true` |  |
-| datum.api.datastore.sqlite.local.enabled | bool | `true` |  |
-| datum.api.datastore.sqlite.local.primary.storage.accessModes[0] | string | `"ReadWriteOnce"` |  |
-| datum.api.datastore.sqlite.local.primary.storage.size | string | `"1Gi"` |  |
-| datum.api.datastore.sqlite.local.secondary.enabled | bool | `true` |  |
-| datum.api.datastore.sqlite.local.secondary.storage.accessModes[0] | string | `"ReadWriteOnce"` |  |
-| datum.api.datastore.sqlite.local.secondary.storage.size | string | `"1Gi"` |  |
-| datum.api.imagePullSecrets | list | `[]` |  |
-| datum.api.labels | object | `{}` |  |
-| datum.api.livenessProbe.httpGet.path | string | `"/metrics"` |  |
-| datum.api.livenessProbe.httpGet.port | string | `"http"` |  |
-| datum.api.nodeSelector | object | `{}` |  |
-| datum.api.podAnnotations | object | `{}` |  |
-| datum.api.podLabels | object | `{}` |  |
-| datum.api.podSecurityContext | object | `{}` |  |
-| datum.api.readinessProbe.httpGet.path | string | `"/metrics"` |  |
-| datum.api.readinessProbe.httpGet.port | string | `"http"` |  |
-| datum.api.replicas | int | `1` |  |
-| datum.api.resources | object | `{}` |  |
-| datum.api.securityContext | object | `{}` |  |
-| datum.api.tolerations | list | `[]` |  |
-| datum.extraServices | list | `[]` |  |
-| datum.image.pullPolicy | string | `"IfNotPresent"` |  |
-| datum.image.repository | string | `"ghcr.io/datumforge/datum"` |  |
-| datum.image.tag | string | `"1391-de0a31b1"` |  |
-| datum.ingress.annotations | object | `{}` |  |
-| datum.ingress.className | string | `""` |  |
-| datum.ingress.enabled | bool | `false` |  |
-| datum.ingress.extraHosts | list | `[]` |  |
-| datum.ingress.extraPaths | list | `[]` |  |
-| datum.ingress.extraTLS | list | `[]` |  |
-| datum.ingress.hostname | string | `"datum.example.com"` |  |
-| datum.ingress.labels | object | `{}` |  |
-| datum.ingress.selfSigned | bool | `false` |  |
-| datum.ingress.tls | bool | `true` |  |
-| datum.service.annotations | object | `{}` |  |
-| datum.service.labels | object | `{}` |  |
-| datum.service.port | int | `17608` |  |
-| datum.service.portName | string | `"http"` |  |
-| datum.service.type | string | `"ClusterIP"` |  |
-| datum.serviceAccount.annotations | object | `{}` |  |
-| datum.serviceAccount.automountServiceAccountToken | bool | `true` |  |
-| datum.serviceAccount.create | bool | `true` |  |
-| datum.serviceAccount.imagePullSecrets | list | `[]` |  |
-| datum.serviceAccount.labels | object | `{}` |  |
+| api.affinity | object | `{}` |  |
+| api.annotations | object | `{}` |  |
+| api.commonAnnotations | object | `{}` |  |
+| api.commonLabels | object | `{}` |  |
+| api.datastore.sqlite.enabled | bool | `true` |  |
+| api.datastore.sqlite.local.enabled | bool | `true` |  |
+| api.datastore.sqlite.local.primary.storage.accessModes[0] | string | `"ReadWriteOnce"` |  |
+| api.datastore.sqlite.local.primary.storage.size | string | `"1Gi"` |  |
+| api.datastore.sqlite.local.secondary.enabled | bool | `true` |  |
+| api.datastore.sqlite.local.secondary.storage.accessModes[0] | string | `"ReadWriteOnce"` |  |
+| api.datastore.sqlite.local.secondary.storage.size | string | `"1Gi"` |  |
+| api.imagePullSecrets | list | `[]` |  |
+| api.labels | object | `{}` |  |
+| api.livenessProbe.httpGet.path | string | `"/metrics"` |  |
+| api.livenessProbe.httpGet.port | string | `"http"` |  |
+| api.nodeSelector | object | `{}` |  |
+| api.podAnnotations | object | `{}` |  |
+| api.podLabels | object | `{}` |  |
+| api.podSecurityContext | object | `{}` |  |
+| api.readinessProbe.httpGet.path | string | `"/metrics"` |  |
+| api.readinessProbe.httpGet.port | string | `"http"` |  |
+| api.replicas | int | `1` |  |
+| api.resources | object | `{}` |  |
+| api.securityContext | object | `{}` |  |
+| api.tolerations | list | `[]` |  |
+| extraServices | list | `[]` |  |
+| image.pullPolicy | string | `"IfNotPresent"` |  |
+| image.repository | string | `"ghcr.io/datumforge/datum"` |  |
+| image.tag | string | `"1391-de0a31b1"` |  |
+| ingress.annotations | object | `{}` |  |
+| ingress.className | string | `""` |  |
+| ingress.enabled | bool | `false` |  |
+| ingress.extraHosts | list | `[]` |  |
+| ingress.extraPaths | list | `[]` |  |
+| ingress.extraTLS | list | `[]` |  |
+| ingress.hostname | string | `"datum.example.com"` |  |
+| ingress.labels | object | `{}` |  |
+| ingress.selfSigned | bool | `false` |  |
+| ingress.tls | bool | `true` |  |
 | openfga.datastore.engine | string | `"memory"` |  |
 | openfga.experimentals[0] | string | `"check-query-cache"` |  |
 | openfga.playground.enabled | bool | `false` |  |
@@ -77,6 +67,16 @@ Kubernetes: `>=1.24`
 | redis.master.nodeSelector | object | `{}` |  |
 | redis.replica.nodeSelector | object | `{}` |  |
 | redis.replica.replicaCount | int | `1` |  |
+| service.annotations | object | `{}` |  |
+| service.labels | object | `{}` |  |
+| service.port | int | `17608` |  |
+| service.portName | string | `"http"` |  |
+| service.type | string | `"ClusterIP"` |  |
+| serviceAccount.annotations | object | `{}` |  |
+| serviceAccount.automountServiceAccountToken | bool | `true` |  |
+| serviceAccount.create | bool | `true` |  |
+| serviceAccount.imagePullSecrets | list | `[]` |  |
+| serviceAccount.labels | object | `{}` |  |
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.13.1](https://github.com/norwoodj/helm-docs/releases/v1.13.1)
