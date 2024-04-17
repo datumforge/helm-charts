@@ -12,7 +12,7 @@ Kubernetes: `>=1.24`
 |------------|------|---------|
 | https://charts.bitnami.com/bitnami | common | 2.19.0 |
 | https://charts.bitnami.com/bitnami | redis | 19.0.1 |
-| https://openfga.github.io/helm-charts | openfga | 0.1.41 |
+| https://openfga.github.io/helm-charts | openfga | 0.2.3 |
 
 ## Values
 
