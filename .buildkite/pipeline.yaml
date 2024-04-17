@@ -11,7 +11,7 @@ steps:
     depends_on:
       - helm-dep-up
     plugins:
-      - docker#v5.10.0:
+      - docker#v5.11.0:
           image: "jnorwood/helm-docs:latest"
           volume: ["`pwd`:/helm-docs"]
           entrypoint: "/usr/bin/helm-docs"
@@ -34,7 +34,7 @@ steps:
     depends_on:
       - helm-dep-up
     plugins:
-      - docker#v5.10.0:
+      - docker#v5.11.0:
           image: "alpine/helm"
           command: 
             - "lint"
