@@ -26,7 +26,7 @@ steps:
   - label: ":trivy: scan"
     command: "echo '--- Running the Trivy security scanner'"
     plugins:
-      - equinixmetal-buildkite/trivy#v1.16.7:
+      - equinixmetal-buildkite/trivy#v1.18.5:
           severity: "CRITICAL,HIGH"
           security-checks: "config,secret"
   
