@@ -11,7 +11,7 @@ steps:
     depends_on:
       - helm-dep-up
     plugins:
-      - docker#v5.8.0:
+      - docker#v5.10.0:
           image: "jnorwood/helm-docs:latest"
           volume: ["`pwd`:/helm-docs"]
           entrypoint: "/usr/bin/helm-docs"
@@ -26,7 +26,7 @@ steps:
   - label: ":trivy: scan"
     command: "echo '--- Running the Trivy security scanner'"
     plugins:
-      - equinixmetal-buildkite/trivy#v1.16.7:
+      - equinixmetal-buildkite/trivy#v1.18.5:
           severity: "CRITICAL,HIGH"
           security-checks: "config,secret"
   
@@ -34,7 +34,7 @@ steps:
     depends_on:
       - helm-dep-up
     plugins:
-      - docker#v5.8.0:
+      - docker#v5.10.0:
           image: "alpine/helm"
           command: 
             - "lint"
