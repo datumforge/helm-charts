@@ -1,85 +1,86 @@
 ---
-datum:
-  image:
-    repository: "ghcr.io/datumforge/datum"
-    pullPolicy: IfNotPresent
-    tag: "1391-de0a31b1" #v0.2.3
+image:
+  repository: "ghcr.io/datumforge/datum"
+  pullPolicy: IfNotPresent
+  tag: "1391-de0a31b1" #v0.2.3
 
-  api:
-    commonLabels: {}
-    commonAnnotations: {}
-    replicas: 1
-    resources: {}
-    nodeSelector: {}
-    tolerations: []
-    affinity: {}
-    labels: {}
-    annotations: {}
-    securityContext: {}
-    imagePullSecrets: []
-    podAnnotations: {}
-    podLabels: {}
-    podSecurityContext: {}
-    livenessProbe: 
-      httpGet:
-        path: /metrics
-        port: http
-    readinessProbe: 
-      httpGet:
-        path: /metrics
-        port: http
-    datastore:
-      sqlite:
+api:
+  commonLabels: {}
+  commonAnnotations: {}
+  replicas: 1
+  resources: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  labels: {}
+  annotations: {}
+  securityContext: {}
+  imagePullSecrets: []
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext: {}
+  livenessProbe:
+    httpGet:
+      path: /metrics
+      port: http
+  readinessProbe:
+    httpGet:
+      path: /metrics
+      port: http
+  datastore:
+    sqlite:
+      enabled: true
+      local:
         enabled: true
-        local:
+        primary:
+          storage:
+            size: 1Gi
+            accessModes:
+              - ReadWriteOnce
+        secondary:
           enabled: true
-          primary:
-            storage:
-              size: 1Gi
-              accessModes: 
-                - ReadWriteOnce
-          secondary:
-            enabled: true
-            storage:
-              size: 1Gi
-              accessModes:
-                - ReadWriteOnce
+          storage:
+            size: 1Gi
+            accessModes:
+              - ReadWriteOnce
 
-  serviceAccount:
-    create: true
-    annotations: {}
-    labels: {}
-    imagePullSecrets: []
-    automountServiceAccountToken: true
+serviceAccount:
+  create: true
+  annotations: {}
+  labels: {}
+  imagePullSecrets: []
+  automountServiceAccountToken: true
 
-  service:
-    type: ClusterIP
-    port: 17608
-    portName: "http"
-    labels: {}
-    annotations: {}
+service:
+  type: ClusterIP
+  port: 17608
+  portName: "http"
+  labels: {}
+  annotations: {}
 
-  extraServices: []
-    # - name: "extra-service"
-    #   type: ClusterIP
-    #   port: 80
-    #   protocol: TCP
-    #   portName: "my-port-name"
-    #   labels: {}
-    #   annotations: {}
+extraServices:
+  []
+  # - name: "extra-service"
+  #   type: ClusterIP
+  #   port: 80
+  #   protocol: TCP
+  #   portName: "my-port-name"
+  #   labels: {}
+  #   annotations: {}
 
-  ingress:
-    enabled: false
-    className: ""
-    extraHosts: []
-    extraPaths: []
-    extraTLS: []
-    hostname: "datum.example.com"
-    labels: {}
-    annotations: {}
-      # cert-manager.io/cluster-issuer: nameOfClusterIssuer
-    tls: true
-    selfSigned: false
+ingress:
+  enabled: false
+  className: ""
+  extraHosts: []
+  extraPaths: []
+  extraTLS: []
+  hostname: "datum.example.com"
+  labels: {}
+  annotations:
+    {}
+    # cert-manager.io/cluster-issuer: nameOfClusterIssuer
+  tls: true
+  selfSigned: false
 
 openfga:
   replicaCount: 1

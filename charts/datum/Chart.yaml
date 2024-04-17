@@ -16,7 +16,7 @@ dependencies:
     repository: https://openfga.github.io/helm-charts
     tags:
       - openfga
-    version: 0.1.41
+    version: 0.2.3
   - name: redis
     version: 19.0.1
     condition: redis.enabled
