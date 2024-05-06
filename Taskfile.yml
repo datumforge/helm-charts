@@ -1,33 +1,37 @@
 version: "3"
 
 tasks:
-  dir: ./charts/datum
   lint:
+    dir: ./charts/datum
     desc: lint your helm chart
-
     cmds:
       - helm lint .
+
   spicylint:
     dir: ./charts/datum
     desc: lint your helm chart with kube-score and some other stuff
     cmds:
       - helm template . | kubeconform -strict
       - helm template . | kube-score score -
+
   docs:
     dir: ./charts/datum
     desc: generate documentation for your helm chart
     cmds:
       - helm-docs .
+
   template:
     dir: ./charts/datum
     desc: template your helm chart
     cmds:
       - helm template . > output/manifest.yaml
+
   dependency:
     dir: ./charts/datum
     desc: install dependencies
     cmds:
       - helm dependency update
+
   minikube:
     desc: Start minikube
     cmds:
@@ -35,6 +39,7 @@ tasks:
     silent: true
     status:
       - test $(minikube status | grep -i running | wc -l) -eq 3
+
   minikube:down:
     desc: Bring down minikube
     cmds:
@@ -42,11 +47,13 @@ tasks:
     silent: true
     status:
       - test $(minikube status | grep -i stopped | wc -l) -eq 4
+
   minikube:purge:
     desc: Run minikube delete
     cmds:
       - minikube delete
     silent: true
+
   install:
     desc: install dependencies related to this task file 
     cmds:
@@ -57,6 +64,7 @@ tasks:
       - brew install kube-score
       - task: krew
       - brew install norwoodj/tap/helm-docs
+  
   krew:
     desc: install krew
     cmds: 
