@@ -4,7 +4,7 @@ dependencies:
   version: 2.19.3
 - name: openfga
   repository: https://openfga.github.io/helm-charts
-  version: 0.2.3
+  version: 0.2.4
 - name: redis
   repository: https://charts.bitnami.com/bitnami
   version: 19.4.0
