@@ -58,7 +58,7 @@ Kubernetes: `>=1.24`
 | ingress.selfSigned | bool | `false` |  |
 | ingress.tls | bool | `true` |  |
 | openfga.datastore.engine | string | `"memory"` |  |
-| openfga.experimentals[0] | string | `"check-query-cache"` |  |
+| openfga.experimentals | list | `[]` |  |
 | openfga.playground.enabled | bool | `false` |  |
 | openfga.replicaCount | int | `1` |  |
 | redis.auth.enabled | bool | `false` |  |
