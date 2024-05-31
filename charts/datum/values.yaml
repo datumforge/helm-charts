@@ -88,8 +88,7 @@ openfga:
     engine: memory
   playground:
     enabled: false
-  experimentals:
-    - check-query-cache
+  experimentals: []
 
 redis:
   enabled: true

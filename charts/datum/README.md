@@ -12,7 +12,7 @@ Kubernetes: `>=1.24`
 |------------|------|---------|
 | https://charts.bitnami.com/bitnami | common | 2.19.3 |
 | https://charts.bitnami.com/bitnami | redis | 19.5.0 |
-| https://openfga.github.io/helm-charts | openfga | 0.2.4 |
+| https://openfga.github.io/helm-charts | openfga | 0.2.5 |
 
 ## Values
 
@@ -58,7 +58,7 @@ Kubernetes: `>=1.24`
 | ingress.selfSigned | bool | `false` |  |
 | ingress.tls | bool | `true` |  |
 | openfga.datastore.engine | string | `"memory"` |  |
-| openfga.experimentals[0] | string | `"check-query-cache"` |  |
+| openfga.experimentals | list | `[]` |  |
 | openfga.playground.enabled | bool | `false` |  |
 | openfga.replicaCount | int | `1` |  |
 | redis.auth.enabled | bool | `false` |  |
