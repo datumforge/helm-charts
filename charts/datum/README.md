@@ -10,7 +10,7 @@ Kubernetes: `>=1.24`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | common | 2.20.0 |
+| https://charts.bitnami.com/bitnami | common | 2.20.2 |
 | https://charts.bitnami.com/bitnami | redis | 19.5.2 |
 | https://openfga.github.io/helm-charts | openfga | 0.2.6 |
 
