@@ -18,6 +18,6 @@ dependencies:
       - openfga
     version: 0.2.6
   - name: redis
-    version: 19.5.2
+    version: 19.5.3
     condition: redis.enabled
     repository: https://charts.bitnami.com/bitnami
